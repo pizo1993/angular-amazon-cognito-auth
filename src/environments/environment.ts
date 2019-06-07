@@ -2,11 +2,12 @@
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { CREDS } from './creds';
 export const environment = {
   production: false,
   cognitoPool: {
-    UserPoolId: "us-east-1_EwhpEh6RR",
-    ClientId: "2to87p666bs1j7entkfrbs1io9"
+    UserPoolId: CREDS.USER_POOL_ID,
+    ClientId: CREDS.CLIENT_ID
   }
 };
 
