@@ -15,6 +15,7 @@ import { HomeComponent } from "./components/home";
 // Importing the services
 import { AuthService, AuthGuard } from "./shared/services";
 
+
 @NgModule({
   declarations: [AppComponent, LoginComponent, HomeComponent],
   imports: [

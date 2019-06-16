@@ -6,25 +6,35 @@
  */
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 // Injecting services
 import { AuthService } from "../../shared/services";
+
+
 
 @Component({
   selector: "app-login",
   styleUrls: ["./login.component.scss"],
   templateUrl: "./login.component.html"
 })
+
+
+
+
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
+  private errorMessage:string;
+  private returnUrl: string;
   constructor(
     private fb: FormBuilder,
     public authService: AuthService,
-    public router: Router
+    public router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
     this.createLoginForm();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
   /**
    * @method createLogigForm creating an angular reactive form field with validations
@@ -39,6 +49,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  //Implements method of AuthCallback interface 
+
+
   public OnSubmit(): void {
     /**
      * @method AuthService.authenticateCongnito calling the cognito authentication 
@@ -46,23 +59,29 @@ export class LoginComponent implements OnInit {
      * @param {string} password
      * @return {object} With accesstoken and payload
      */
+
+    let cognitoCreds = {
+      Username: this.loginForm.value.username,
+      Password: this.loginForm.value.password
+    }
     this.authService
-      .authenticateCongnito({
-        Username: this.loginForm.value.username,
-        Password: this.loginForm.value.password
-      })
+      .authenticateCongnito(cognitoCreds)
       .subscribe(result => {
+        console.log("Login result:",result)
         // verify the result having the accessToken and payload information
         if (result && result.accessToken) {
           // After information is received send it to angular setters in services and can utlised
-          this.authService.accessToken = result.accessToken.jwtToken;
-          this.authService.userLoggedIn = true;
+          //this.authService.accessToken = result.accessToken.jwtToken;
+          //this.authService.userLoggedIn = true;
           this.authService.UserDetails = {
             username: result.accessToken.payload.username
           };
-          // Route to home screen after success
-          this.router.navigate(["home"]);
+          // Route to returnUrl
+          this.router.navigateByUrl(this.returnUrl);
         }
+      }, err => {
+        this.errorMessage = err.message;
+        console.log("Login Error:",this.errorMessage)
       });
   }
 }

@@ -10,8 +10,8 @@ import { AuthGuard } from "./shared/services";
 // Defining the routes and exporting as a constant so that cannot be altered by any other
 export const routes: Routes = [
   {
-    path: "",
+    path: "login",
     component: LoginComponent
   },
-  { path: "home", component: HomeComponent, canActivate: [AuthGuard] }
+  { path: "", component: HomeComponent, canActivate: [AuthGuard] }
 ];

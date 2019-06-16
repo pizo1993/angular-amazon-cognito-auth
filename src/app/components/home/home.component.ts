@@ -31,10 +31,14 @@ export class HomeComponent implements OnInit {
    */
   public logout(): void {
     // Clear the user details on logout and make userlogged in to false
-    this.authService.userLoggedIn = false;
+    //this.authService.userLoggedIn = false;
     this.authService.UserDetails = {};
-    this.authService.accessToken = null;
+    //this.authService.accessToken = null;
     // Route to sign
     this.router.navigate([""]);
+  }
+
+  private get qrGuuid():string {
+    return localStorage["QR_GUUID"];
   }
 }
