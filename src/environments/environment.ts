@@ -1,14 +1,14 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
-import { CREDS } from './creds';
 export const environment = {
   production: false,
   cognitoPool: {
-    UserPoolId: CREDS.USER_POOL_ID,
-    ClientId: CREDS.CLIENT_ID
-  }
+    UserPoolId: 'eu-central-1_kIYx3shkr',
+    ClientId: '25ibgevg5qgpkjlmoo2d1blt8u'
+  },
+  API_ID: 'qoy2wnzfhf',
+  API_STAGE: 'dev'
 };
 
 /*

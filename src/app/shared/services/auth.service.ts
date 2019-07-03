@@ -17,7 +17,8 @@ import {
   CognitoUserPool,
   CognitoUser,
   AuthenticationDetails,
-  CognitoUserSession
+  CognitoUserSession,
+  CognitoIdToken
 } from "amazon-cognito-identity-js";
 import { ActivatedRoute } from "@angular/router";
 
@@ -50,26 +51,7 @@ export class AuthService {
     }
     return false;
   }
-/*
-  getFragment(): Observable<any> {
-    console.log("Getting url fragment..");
-    return this.route.fragment
-      .pipe(
-        filter(data => data != ''),
-        map(fragment => {
-          console.log("Fragment:",fragment);
-          return new URLSearchParams(fragment)
-        }),
-        map(params => {
-          if (params.get('state') != undefined) {
-            return "/#state=" + params.get('state')
-          } else {
-            return ''
-          }
-        })
-      )
-  }
-*/
+
   setQrGuuid() {
     console.log("In setQrGuuid...")
     let path = this.locationStrategy.path(true);
@@ -125,16 +107,26 @@ export class AuthService {
     // Handling the final Observable 
     return authResult.asObservable();
   }
-  /*// Set accesstoken data
-  set accessToken(value: string) {
-    this._accessToken = value;
-  }
-  // set Logged in user data
-  set userLoggedIn(value: boolean) {
-    this._userloggedIn = this.getUserSession();
-  }
-  */
+  
 
+  getIdToken():string {
+    let cognitoUser = this.getCurrentUser();
+    if (cognitoUser != null) {
+      return cognitoUser.getSession((err, session) => {
+        if (err) {
+          console.log("Auth Service: Couldn't get the session", err.stack);
+          return err
+        } else {
+          console.log("Auth Service: Session is " + session.isValid());
+          console.log(session.getIdToken().jwtToken)
+          return session.getIdToken().jwtToken;
+        }
+      })
+    } else {
+      console.log("Auth Service: can't retrieve the current user");
+      return null;
+    }
+  }
 
   isUserLoggedIn(): boolean {
     let userLoggedSubject = new BehaviorSubject<boolean>(false);
@@ -145,6 +137,7 @@ export class AuthService {
           userLoggedSubject.next(false);
         } else {
           console.log("Auth Service: Session is " + session.isValid());
+          //console.log(session.getIdToken().jwtToken)
           userLoggedSubject.next(true);
         }
       })

@@ -1,8 +1,9 @@
-import { CREDS } from './creds';
 export const environment = {
   production: true,
   cognitoPool: {
-    UserPoolId: CREDS.USER_POOL_ID,
-    ClientId: CREDS.CLIENT_ID
-  }
+    UserPoolId: 'eu-central-1_kIYx3shkr',
+    ClientId: '25ibgevg5qgpkjlmoo2d1blt8u'
+  },
+  API_ID: 'ldh19pwey5',
+  API_STAGE: 'prod'
 };

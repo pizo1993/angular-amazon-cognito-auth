@@ -12,12 +12,14 @@ import { AppComponent } from "./app.component";
 // Importing custom components
 import { LoginComponent } from "./components/login";
 import { HomeComponent } from "./components/home";
+import { ValidateComponent } from './components/validate/validate.component';
 // Importing the services
 import { AuthService, AuthGuard } from "./shared/services";
 
 
+
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent],
+  declarations: [AppComponent, LoginComponent, HomeComponent, ValidateComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes), // Adding Router to root level so that can access entire app

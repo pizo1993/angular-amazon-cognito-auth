@@ -1,3 +1,16 @@
-<h3>Welcome, Mr. {{UserDetails.username}}</h3>
-<span> QR {{ qrGuuid }}</span>
-<button mat-raised-button color="primary" (click)="logout()">Logout</button>
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center" *ngIf='queryStringQrIdIsPresent'>
+    <h1>
+        Welcome to Acp Ice App!
+    </h1>
+    <h2> Clicca sull'icona in basso per verificare la correttezza del Qr Code </h2>
+    <!--<button (click)="validateQr()">-->
+    <button [routerLink]="['validate']" [queryParams]="{ qrId: getQueryParams('qrId') }">
+        <img width="300" alt="Angular Logo" src="./../../../assets/img/Algida_logo.svg">
+    </button>
+</div>
+<div style="text-align:center" *ngIf='!queryStringQrIdIsPresent'>
+    <div class="alert alert-danger">
+        <h1> Qr Id non presente nei parametri! Riesegui la scansione del codice Qr </h1>
+    </div>
+</div>
