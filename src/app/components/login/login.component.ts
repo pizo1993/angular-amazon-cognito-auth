@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    if (this.authService.isUserLoggedIn()) 
+      this.router.navigate(['/']);
     this.createLoginForm();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
