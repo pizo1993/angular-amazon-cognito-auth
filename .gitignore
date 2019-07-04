@@ -9,7 +9,7 @@
 /node_modules
 
 # Credentials
-/environments
+**/environments/**
 
 # IDEs and editors
 /.idea
