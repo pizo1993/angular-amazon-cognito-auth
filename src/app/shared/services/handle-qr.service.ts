@@ -17,7 +17,7 @@ export class HandleQrService {
 
   }
 
-  validateQr(queryStringQrId): Observable<any> {
+  validateQr(queryStringQrId,username): Observable<any> {
     console.log("Before Calling this.authService()");
     let token = this.authService.getIdToken();
     
@@ -27,7 +27,8 @@ export class HandleQrService {
         'Authorization': token     
       }, 
       params: {
-        "qrId": queryStringQrId
+        "qrId": queryStringQrId,
+        "user": username
       }
     } 
     return this.http.get(this.apiGatewayEndpoint,HttpOptions);

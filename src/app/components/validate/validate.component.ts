@@ -38,7 +38,8 @@ export class ValidateComponent implements OnInit {
       return
     }
     console.log(queryStringQrId);
-    this.hanldeQr.validateQr(queryStringQrId).subscribe(val => {
+    let currentUser = this.authService.getUsername(); 
+    this.hanldeQr.validateQr(queryStringQrId,currentUser).subscribe(val => {
       console.log(val);
       this.message.type = "success";
       this.message.text = "Qr Code verificato correttamente!";

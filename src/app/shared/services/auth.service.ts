@@ -82,6 +82,10 @@ export class AuthService {
     return this.getUserPool().getCurrentUser();
   }
 
+  getUsername() {
+    return this.getCurrentUser().getUsername();
+  }
+
   authenticateCongnito(data): Observable<any> {
     // Defining an rxjs subject so as to emit after recieving the response
     let authResult = new Subject<any>();

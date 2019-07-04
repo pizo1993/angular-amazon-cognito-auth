@@ -26,8 +26,7 @@ export class HomeComponent implements OnInit {
     let queryStringQrId = this.activatedRoute.snapshot.queryParams["qrId"];
     if (queryStringQrId != undefined && queryStringQrId != null && queryStringQrId != '') {
       this.queryStringQrIdIsPresent=true;
-    }
-      
+    }  
   }
   /**
    * @method getUserDetails Get the logged in user info
